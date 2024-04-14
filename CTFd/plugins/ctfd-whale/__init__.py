@@ -138,7 +138,6 @@ def load(app):
                         name=name,
                         tag=tag,
                     )
-                    # 删除上传的文件
                     os.remove(filepath)
                     return {"success": True, "message": "Image upload completed"}, 200
                 except Exception as e:
@@ -165,7 +164,6 @@ def load(app):
     @admins_only
     def admin_image_update():
         try:
-            # 获取GET请求中的name参数
             name = request.args.get("name")
             log(
                 "whale",
@@ -173,7 +171,6 @@ def load(app):
                 name=name,
             )
             DockerUtils.client.api.pull(name)
-            # 返回HTTP状态码200
             log(
                 "whale",
                 "[{date}] [CTFd Whale] {name} image update successful.",
