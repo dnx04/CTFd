@@ -1,0 +1,11 @@
+Types: deb deb-src
+URIs: http://mirror.xtom.com.hk/debian
+Suites: bookworm bookworm-updates
+Components: main
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+Types: deb deb-src
+URIs: http://mirror.xtom.com.hk/debian-security
+Suites: bookworm-security
+Components: main
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg

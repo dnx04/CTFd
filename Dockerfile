@@ -2,13 +2,15 @@ FROM python:3.11-slim-bookworm as build
 
 WORKDIR /opt/CTFd
 
+COPY debian.sources /etc/apt/sources.list.d/debian.sources
+
 # hadolint ignore=DL3008
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-        build-essential \
-        libffi-dev \
-        libssl-dev \
-        git \
+    build-essential \
+    libffi-dev \
+    libssl-dev \
+    git \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && python -m venv /opt/venv
@@ -19,20 +21,22 @@ COPY . /opt/CTFd
 
 RUN pip install --no-cache-dir -r requirements.txt \
     && for d in CTFd/plugins/*; do \
-        if [ -f "$d/requirements.txt" ]; then \
-            pip install --no-cache-dir -r "$d/requirements.txt";\
-        fi; \
+    if [ -f "$d/requirements.txt" ]; then \
+    pip install --no-cache-dir -r "$d/requirements.txt";\
+    fi; \
     done;
 
 
 FROM python:3.11-slim-bookworm as release
 WORKDIR /opt/CTFd
 
+COPY --from=build /etc/apt/sources.list.d/debian.sources /etc/apt/sources.list.d/debian.sources
+
 # hadolint ignore=DL3008
-RUN apt-get update \
+RUN  apt-get update \
     && apt-get install -y --no-install-recommends \
-        libffi8 \
-        libssl3 \
+    libffi8 \
+    libssl3 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
