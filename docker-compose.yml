@@ -70,7 +70,7 @@ services:
 
 
   frps:
-    image: snowdreamtech/frps
+    image: snowdreamtech/frps:latest
     restart: always
     volumes:
       - ./conf/frp:/conf
@@ -86,7 +86,7 @@ services:
         ipv4_address: 172.1.0.3
 
   frpc:
-    image: snowdreamtech/frpc
+    image: snowdreamtech/frpc:latest
     restart: always
     volumes:
       - ./conf/frp:/conf/
