@@ -23,6 +23,7 @@ services:
       - db
       - frpc
     networks:
+      default:
       internal:
       frp_connect:
         ipv4_address: 172.1.0.5
