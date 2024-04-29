@@ -2,6 +2,8 @@ services:
   ctfd:
     build: .
     user: root
+    ports:
+      - "8000:8000"
     restart: always
     environment:
       - UPLOAD_FOLDER=/var/uploads
@@ -24,19 +26,6 @@ services:
       internal:
       frp_connect:
         ipv4_address: 172.1.0.5
-
-  nginx:
-    image: nginx:stable
-    restart: always
-    volumes:
-      - ./conf/nginx/http.conf:/etc/nginx/nginx.conf
-    ports:
-      - 80:80
-    depends_on:
-      - ctfd
-    networks:
-      default:
-      internal:
 
   db:
     image: mariadb:10.11
